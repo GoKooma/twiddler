@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="jquery.js"></script>
+    <script src="data_generator.js"></script>
+
+    <title>Twiddler Project Koo</title>
+  </head>
+  <body>
+
+  	<script>
+
+      $(document).ready(function(){
+
+      	var $body = $('body');
+        $body.html('');
+
+        $('<header>Twiddler</header>').addClass('user-timeline').appendTo($body);
+
+      });
+
+    </script>
+  </body>
+</html>

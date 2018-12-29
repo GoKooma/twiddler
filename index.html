@@ -1,27 +1,58 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+
+    <title>Twiddler Project Koo</title>
   </head>
   <body>
+
     <script>
 
       $(document).ready(function(){
         var $body = $('body');
         $body.html('');
 
+        $('<header>Twiddler</header>').appendTo($body);
+
         var index = streams.home.length - 1;
+        var staticIndex = index;
+
         while(index >= 0){
           var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
+          var $tweet = $('<div></div>').addClass('tweets');
+          var $timestamp = $('<div></div>').addClass('timestamp');
+          $tweet.html('<a href=\"user.html\">@' + tweet.user + ': </a>' + tweet.message)
+          $timestamp.text("Posted on: " + tweet.created_at.getHours() + ":" + tweet.created_at.getMinutes() + ":" + tweet.created_at.getSeconds() + " " + tweet.created_at.toDateString() + " #" + index);
           $tweet.appendTo($body);
+          $timestamp.appendTo($body);
           index -= 1;
         }
+        //
+        index = staticIndex;
+        index++;
 
+        setInterval(function() {
+          var newIndex = streams.home.length - 1;
+          var updatedIndex = newIndex;
+
+          while(newIndex > index){
+            tweet = streams.home[index];
+            $tweet = $('<div></div>').addClass('tweets');
+            $timestamp = $('<div></div>').addClass('timestamp');
+            $tweet.html('<a href=\"user.html\">@' + tweet.user + ': </a>' + tweet.message)
+            $timestamp.text("Posted on: " + tweet.created_at.getHours() + ":" + tweet.created_at.getMinutes() + ":" + tweet.created_at.getSeconds() + " " + tweet.created_at.toDateString() + " #" + index);
+            $timestamp.prependTo($body);
+            $tweet.prependTo($body);
+            index += 1;
+          }
+        }, 5000);
       });
 
     </script>
+
   </body>
 </html>
